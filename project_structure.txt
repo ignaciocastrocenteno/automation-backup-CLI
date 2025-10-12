@@ -1,0 +1,30 @@
+auto-backup-cli
+├─ src
+│  └─ auto_backup_cli
+│     ├─ __init__.py
+│     ├─ cli.py                 # Punto de entrada CLI (Typerargparse)
+│     ├─ app.py                 # Caso de uso orquestación del backup
+│     ├─ services
+│     │  ├─ backup_service.py   # Lógica principal de backup
+│     │  └─ compression.py      # ziptar helpers
+│     ├─ adapters
+│     │  ├─ filesystem.py       # Lecturaescritura segura (Pathlib)
+│     │  └─ logging_config.py   # Configura logging y rotation
+│     ├─ domain
+│     │  ├─ models.py           # BackupJob, Filters, Result (dataclasses)
+│     │  └─ exceptions.py       # Errores específicos
+│     └─ utils
+│        └─ timeutils.py        # Fechas, slug de timestamp, etc.
+├─ tests
+│  ├─ __init__.py
+│  ├─ test_cli.py
+│  ├─ test_backup_service.py
+│  ├─ test_filesystem.py
+│  └─ test_compression.py
+├─ .gitignore
+├─ README.md
+├─ pyproject.toml               # build system, deps, tool configs
+├─ requirements.txt             # (opcional si preferís no usar extras en pyproject)
+├─ requirements-dev.txt         # deps de desarrollo (linttest)
+├─ .pre-commit-config.yaml      # ganchos de lintformattest rápidos
+└─ LICENSE
