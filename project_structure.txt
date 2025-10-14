@@ -16,11 +16,15 @@ auto-backup-cli
 │     └─ utils
 │        └─ timeutils.py        # Fechas, slug de timestamp, etc.
 ├─ tests
-│  ├─ __init__.py
-│  ├─ test_cli.py
-│  ├─ test_backup_service.py
-│  ├─ test_filesystem.py
-│  └─ test_compression.py
+│   ├─ __init__.py
+│   ├─ test_cli.py
+│   ├─ test_backup_service.py
+│   ├─ test_filesystem.py
+│   ├─ test_filesystem.py
+│   ├─ test_logging_config.py
+│   ├─ test_app_layer.py
+│   ├─ test_cli_run.py
+│   └─ test_compression.py
 ├─ .gitignore
 ├─ README.md
 ├─ pyproject.toml               # build system, deps, tool configs
