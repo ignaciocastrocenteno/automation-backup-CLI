@@ -1,4 +1,6 @@
-# tests/test_logging_config.py
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2025 Ignacio Castro Centeno
+
 from __future__ import annotations
 import logging
 from automation_backup_cli.adapters.logging_config import setup_logging

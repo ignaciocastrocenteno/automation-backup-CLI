@@ -1,4 +1,6 @@
-# tests/test_app_layer.py
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2025 Ignacio Castro Centeno
+
 from __future__ import annotations
 from automation_backup_cli import app as app_module
 from automation_backup_cli.domain.models import BackupResult

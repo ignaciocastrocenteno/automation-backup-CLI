@@ -1,4 +1,6 @@
-# tests/test_cli_run.py
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2025 Ignacio Castro Centeno
+
 from __future__ import annotations
 from pathlib import Path
 import pytest

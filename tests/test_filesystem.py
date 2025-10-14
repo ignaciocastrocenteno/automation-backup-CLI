@@ -1,4 +1,6 @@
-# tests/test_filesystem.py
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (c) 2025 Ignacio Castro Centeno
+
 from __future__ import annotations
 import pytest
 from automation_backup_cli.adapters.filesystem import validate_directory
