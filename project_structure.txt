@@ -2,19 +2,19 @@ auto-backup-cli
 ├─ src
 │  └─ auto_backup_cli
 │     ├─ __init__.py
-│     ├─ cli.py                 # Punto de entrada CLI (Typerargparse)
-│     ├─ app.py                 # Caso de uso orquestación del backup
+│     ├─ cli.py                 # CLI entrypoint (Typerargparse)
+│     ├─ app.py                 # Backup orchestration use case
 │     ├─ services
-│     │  ├─ backup_service.py   # Lógica principal de backup
+│     │  ├─ backup_service.py   # Main logic for backup processing
 │     │  └─ compression.py      # ziptar helpers
 │     ├─ adapters
-│     │  ├─ filesystem.py       # Lecturaescritura segura (Pathlib)
-│     │  └─ logging_config.py   # Configura logging y rotation
+│     │  ├─ filesystem.py       # Safe reading and writing via library (Pathlib)
+│     │  └─ logging_config.py   # Logging and rotation config
 │     ├─ domain
 │     │  ├─ models.py           # BackupJob, Filters, Result (dataclasses)
-│     │  └─ exceptions.py       # Errores específicos
+│     │  └─ exceptions.py       # Specific error and exception handling
 │     └─ utils
-│        └─ timeutils.py        # Fechas, slug de timestamp, etc.
+│        └─ timeutils.py        # Dates, timestamps, etc
 ├─ tests
 │   ├─ __init__.py
 │   ├─ test_cli.py
@@ -27,8 +27,8 @@ auto-backup-cli
 │   └─ test_compression.py
 ├─ .gitignore
 ├─ README.md
-├─ pyproject.toml               # build system, deps, tool configs
-├─ requirements.txt             # (opcional si preferís no usar extras en pyproject)
-├─ requirements-dev.txt         # deps de desarrollo (linttest)
-├─ .pre-commit-config.yaml      # ganchos de lintformattest rápidos
+├─ pyproject.toml               # build system, dependencies and tool configs
+├─ requirements.txt
+├─ requirements-dev.txt         # Dev dependencies (linttest)
+├─ .pre-commit-config.yaml      # Fast hooks for lintformattest
 └─ LICENSE
