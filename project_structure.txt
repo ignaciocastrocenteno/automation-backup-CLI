@@ -2,6 +2,7 @@ auto-backup-cli
 ├─ src
 │  └─ auto_backup_cli
 │     ├─ __init__.py
+│     ├─ __main__.py
 │     ├─ cli.py                 # CLI entrypoint (Typerargparse)
 │     ├─ app.py                 # Backup orchestration use case
 │     ├─ services
