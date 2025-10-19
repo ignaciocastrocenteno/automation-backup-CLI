@@ -20,3 +20,17 @@ class BackupResult:
     files_copied: List[str] = field(default_factory=list)
     compressed_artifact: Optional[str] = None
     errors: List[str] = field(default_factory=list)
+
+@dataclass(frozen=True)
+class PlanItem:
+    """Immutable plan row describing a single source->destination mapping."""
+    source: str
+    destination: str
+    size_bytes: int
+
+@dataclass
+class PlanResult:
+    """Aggregate result for a dry-run plan."""
+    items: List[PlanItem] = field(default_factory=list)
+    total_files: int = 0
+    total_size_bytes: int = 0
