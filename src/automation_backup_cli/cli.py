@@ -12,6 +12,7 @@ from .app import run_backup_job
 from .domain.models import BackupJob
 from .services.backup_service import build_backup_plan
 from .utils.format import human_size
+from .domain.models import BackupJob, CompressionFormat
 
 app = typer.Typer(help="automation-backup-cli: organize and backup files safely.")
 console = Console()
@@ -27,7 +28,7 @@ def run(
     exclude: list[str] = typer.Option(
         [], "--exclude", "-e", help="Glob patterns to exclude (e.g. *.tmp, *.log)"
     ),
-    compress: str | None = typer.Option(
+    compress: Optional[CompressionFormat] = typer.Option(
         None, "--compress", "-c", help="Compression format: zip or tar"
     ),
     dry_run: bool = typer.Option(False, "--dry-run", help="Simulate actions only"),
@@ -35,7 +36,6 @@ def run(
 ) -> None:
     """Run the backup job."""
     console.print(Panel.fit("automation-backup-cli", title="Starting"))
-
     try:
         result = run_backup_job(
             source=source,
@@ -45,22 +45,22 @@ def run(
             dry_run=dry_run,
             verbose=verbose,
         )
+
         if result.errors:
             console.print(f"[bold red]Completed with {len(result.errors)} errors[/]")
-            # Non-zero exit for partial failures
             raise typer.Exit(code=2)
 
         console.print("[bold green]Completed successfully[/]")
-        # Success path: just return (exit code 0)
-        return
+        raise typer.Exit(code=0)
 
     except typer.Exit:
-        # Preserve explicit exit codes (do not convert success into failure).
+        # Preserve explicit exit codes
         raise
     except Exception as exc:
+        # Ensure the message is printed and exit with code 1
         console.print(f"[bold red]Error:[/] {exc}")
-        # Generic failure
         raise typer.Exit(code=1)
+
 
 @app.command("plan")
 def plan(
@@ -76,7 +76,6 @@ def plan(
     """
     console.print(Panel.fit("automation-backup-cli — Plan", title="Preview"))
     try:
-        # Construct a strongly-typed domain object (no **kwargs to please the type checker)
         job = BackupJob(
             source=source,
             destination=destination,
@@ -84,8 +83,6 @@ def plan(
             compress_format=None,
             dry_run=True,
         )
-
-        # Avoiding circular dependency references
         plan_result = build_backup_plan(job)
 
         table = Table(title="Planned copy", expand=True, show_lines=False)
@@ -101,7 +98,7 @@ def plan(
             f"[bold]Total files:[/] {plan_result.total_files}   "
             f"[bold]Total size:[/] {human_size(plan_result.total_size_bytes)}"
         )
-        return
+        raise typer.Exit(code=0)
 
     except typer.Exit:
         raise
