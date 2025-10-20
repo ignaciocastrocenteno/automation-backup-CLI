@@ -1,17 +1,21 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (c) 2025 Ignacio Castro Centeno
 from __future__ import annotations
-from dataclasses import dataclass, field
-from typing import List, Optional
 
+from dataclasses import dataclass, field
+from typing import List, Literal, Optional
+
+# Single source of truth for compression choices
+CompressionFormat = Literal["zip", "tar"] # type alias
 
 @dataclass(frozen=True)
 class BackupJob:
+    """Parameters to execute a backup run. """
     source: str
     destination: str
     exclude_patterns: List[str] = field(default_factory=list)
-    compress_format: Optional[str] = None  # "zip" | "tar" | None
-    dry_run: bool = True
+    compress_format: Optional[CompressionFormat] = None  # "zip" | "tar" | None
+    dry_run: bool = False
 
 
 @dataclass
