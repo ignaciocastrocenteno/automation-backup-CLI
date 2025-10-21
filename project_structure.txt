@@ -1,30 +1,40 @@
-auto-backup-cli
+automation-backup-cli
 ├─ src
-│  └─ auto_backup_cli
+│  └─ automation_backup_cli
 │     ├─ __init__.py
-│     ├─ cli.py                 # Punto de entrada CLI (Typerargparse)
-│     ├─ app.py                 # Caso de uso orquestación del backup
+│     ├─ __main__.py              # python -m automation_backup_cli
+│     ├─ cli.py                   # Typer CLI (run, plan)
+│     ├─ app.py                   # Application orchestration (run_backup_job)
 │     ├─ services
-│     │  ├─ backup_service.py   # Lógica principal de backup
-│     │  └─ compression.py      # ziptar helpers
+│     │  ├─ backup_service.py     # Core backup logic (plan + execute + compress)
+│     │  └─ compression.py        # create_archive() (zip / tar.gz)
 │     ├─ adapters
-│     │  ├─ filesystem.py       # Lecturaescritura segura (Pathlib)
-│     │  └─ logging_config.py   # Configura logging y rotation
+│     │  ├─ filesystem.py         # Safe FS ops, glob/excludes, mkdirs
+│     │  └─ logging_config.py     # Rich console logging config
 │     ├─ domain
-│     │  ├─ models.py           # BackupJob, Filters, Result (dataclasses)
-│     │  └─ exceptions.py       # Errores específicos
+│     │  ├─ models.py             # BackupJob, BackupResult, PlanItem, PlanResult, CompressionFormat
+│     │  └─ exceptions.py         # InvalidPathError, BackupError
 │     └─ utils
-│        └─ timeutils.py        # Fechas, slug de timestamp, etc.
+│        ├─ timeutils.py          # Dated subfolder (YYYY/MM/DD)
+│        └─ format.py             # human_size()
 ├─ tests
-│  ├─ __init__.py
-│  ├─ test_cli.py
-│  ├─ test_backup_service.py
-│  ├─ test_filesystem.py
-│  └─ test_compression.py
+│   ├─ __init__.py
+│   ├─ test_app_layer.py
+│   ├─ test_backup_service.py
+│   ├─ test_cli_errors.py
+│   ├─ test_cli_plan.py
+│   ├─ test_cli_plan_errors.py
+│   ├─ test_cli_run.py
+│   ├─ test_compress_tar.py
+│   ├─ test_compress_zip.py
+│   ├─ test_human_size.py
+│   ├─ test_logging_config.py
+│   └─ test_main_module.py
+├─ .github
+│  └─ workflows
+│       └─ ci.yaml
 ├─ .gitignore
 ├─ README.md
-├─ pyproject.toml               # build system, deps, tool configs
-├─ requirements.txt             # (opcional si preferís no usar extras en pyproject)
-├─ requirements-dev.txt         # deps de desarrollo (linttest)
-├─ .pre-commit-config.yaml      # ganchos de lintformattest rápidos
+├─ pyproject.toml                # build system, deps, tool configs
+├─ .pre-commit-config.yaml       # hooks for lint/format/test (opcional)
 └─ LICENSE
