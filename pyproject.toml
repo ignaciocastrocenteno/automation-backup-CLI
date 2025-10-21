@@ -8,8 +8,8 @@ version = "0.1.0"
 description = "A CLI tool to organize and backup files with dry-run, exclusion patterns, and optional compression."
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{ name = "Ignacio", email = "you@example.com" }]
-license = { text = "MIT" }
+authors = [{ name = "Ignacio Castro Centeno", email = "ignaciocastrocenteno@gmail.com" }]
+license = { text = "GPL3" }
 dependencies = [
   "typer>=0.12.0",
   "rich>=13.7.0"
@@ -28,6 +28,7 @@ strict = true
 
 [dependency-groups]
 dev = [
+    "pre-commit>=3.7.0",
     "black>=25.9.0",
     "freezegun>=1.5.5",
     "mypy>=1.18.2",
