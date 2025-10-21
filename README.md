@@ -20,10 +20,10 @@ A Python CLI to **plan and run** backups from a source directory to a destinatio
 - **Compression**: `--compress zip` or `--compress tar` ⇒ produces `backup_<YYYYMMDD>_<HHMMSS>.(zip|tar.gz)` at the destination root, preserving `YYYY/MM/DD` inside the archive.
 - **Logging**: Rich-styled messages, clear success/errors, consistent exit codes.
 
-**Planned (next sprints)**  
-- `--retention-days N`: purge dated folders older than `N` days.  
-- Config file (`.toml/.yaml`) with precedence: CLI > ENV > file.  
-- File logging with rotation.  
+**Planned (next sprints)**
+- `--retention-days N`: purge dated folders older than `N` days.
+- Config file (`.toml/.yaml`) with precedence: CLI > ENV > file.
+- File logging with rotation.
 - CI and packaging guidance.
 
 ## Tech Stack

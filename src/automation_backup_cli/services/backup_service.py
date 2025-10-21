@@ -13,6 +13,7 @@ from ..services.compression import create_archive
 
 log = logging.getLogger(__name__)
 
+
 def execute_backup(job: BackupJob) -> BackupResult:
     """
     Execute the backup:
@@ -44,6 +45,7 @@ def execute_backup(job: BackupJob) -> BackupResult:
         ensure_destination(target.parent)
         # copy2 preserves metadata (mtime, etc.)
         import shutil
+
         shutil.copy2(f, target)
         result.files_copied.append(str(target))
 
@@ -52,12 +54,14 @@ def execute_backup(job: BackupJob) -> BackupResult:
         # Timestamp for archive name, e.g., 20251014_120000
         # Reuse mtime of the dated folder or compute from current time
         from datetime import datetime
+
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         result.compressed_artifact = str(
             create_archive(dst_root, dated, ts, job.compress_format)  # "zip" | "tar"
         )
 
     return result
+
 
 def build_backup_plan(job: BackupJob) -> PlanResult:
     """

@@ -5,6 +5,7 @@ from __future__ import annotations
 from automation_backup_cli import app as app_module
 from automation_backup_cli.domain.models import BackupResult
 
+
 def test_run_backup_job_calls_setup_and_service(monkeypatch, tmp_path):
     called = {"setup": False, "service": False}
 

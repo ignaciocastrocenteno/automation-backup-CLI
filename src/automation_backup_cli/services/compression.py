@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from pathlib import Path
 from shutil import make_archive
-from typing import Literal
 
 # We support two formats:
 # - "zip"  -> .zip
 # - "tar"  -> .tar.gz (gztar)
 from ..domain.models import CompressionFormat
+
 
 def create_archive(
     destination_root: Path,

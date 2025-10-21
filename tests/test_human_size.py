@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from automation_backup_cli.utils.format import human_size
 
+
 def test_human_size_binary_units_until_pib():
     """
     Cover the final branch in human_size() by passing a very large number.

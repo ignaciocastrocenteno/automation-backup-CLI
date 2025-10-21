@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-import tempfile
 import pytest
 from freezegun import freeze_time
 from automation_backup_cli.domain.models import BackupJob
@@ -33,11 +32,13 @@ def test_dry_run_collects_files_without_copying(tmp_path: Path):
 
     # Assert
     assert len(result.files_planned) == 1  # file1.txt only
-    assert result.files_copied == []       # dry-run -> no copies
+    assert result.files_copied == []  # dry-run -> no copies
+
 
 @freeze_time("2025-10-11 12:00:00")
 def test_execute_backup_copies_files(tmp_path: Path):
-    src = tmp_path / "src"; dst = tmp_path / "dst"
+    src = tmp_path / "src"
+    dst = tmp_path / "dst"
     (src / "dir").mkdir(parents=True)
     (src / "dir" / "a.txt").write_text("A")
     (src / "b.tmp").write_text("B")
@@ -63,7 +64,8 @@ def test_execute_backup_copies_files(tmp_path: Path):
 
 
 def test_execute_backup_invalid_source(tmp_path: Path):
-    dst = tmp_path / "dst"; dst.mkdir()
+    dst = tmp_path / "dst"
+    dst.mkdir()
     job = BackupJob(
         source=str(tmp_path / "nope"),
         destination=str(dst),

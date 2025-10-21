@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 from rich.logging import RichHandler
 
+
 # Update: logging.basicConfig didn't use to reconfigure the login whether
 # there was previously another process that had configured logging before
 #  (e.g. a test suite)

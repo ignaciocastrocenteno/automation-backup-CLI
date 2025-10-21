@@ -30,6 +30,9 @@ automation-backup-cli
 │   ├─ test_human_size.py
 │   ├─ test_logging_config.py
 │   └─ test_main_module.py
+├─ .github
+│  └─ workflows
+│       └─ ci.yaml
 ├─ .gitignore
 ├─ README.md
 ├─ pyproject.toml                # build system, deps, tool configs

@@ -2,6 +2,7 @@
 # Copyright (c) 2025 Ignacio Castro Centeno
 from __future__ import annotations
 
+
 def human_size(num: int) -> str:
     """Return a human-readable size (binary units)."""
     for unit in ("B", "KiB", "MiB", "GiB", "TiB"):

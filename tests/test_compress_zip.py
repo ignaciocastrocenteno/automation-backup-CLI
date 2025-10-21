@@ -9,9 +9,11 @@ from zipfile import ZipFile
 from automation_backup_cli.domain.models import BackupJob
 from automation_backup_cli.services.backup_service import execute_backup
 
+
 @freeze_time("2025-10-14 12:00:00")
 def test_execute_backup_with_zip_creates_archive(tmp_path: Path):
-    src = tmp_path / "src"; dst = tmp_path / "dst"
+    src = tmp_path / "src"
+    dst = tmp_path / "dst"
     (src / "dir").mkdir(parents=True)
     (src / "dir" / "a.txt").write_text("A")
     dst.mkdir()

@@ -7,6 +7,7 @@ import runpy
 import sys
 import pytest
 
+
 def test_main_module_help_exits_zero():
     """
     Execute `python -m automation_backup_cli --help` and ensure it exits with code 0.

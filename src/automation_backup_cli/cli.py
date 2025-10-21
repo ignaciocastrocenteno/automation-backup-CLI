@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 import typer
-from typing import Optional, List
+from typing import Optional
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -12,14 +12,16 @@ from .app import run_backup_job
 from .domain.models import BackupJob
 from .services.backup_service import build_backup_plan
 from .utils.format import human_size
-from .domain.models import BackupJob, CompressionFormat
+from .domain.models import CompressionFormat
 
 app = typer.Typer(help="automation-backup-cli: organize and backup files safely.")
 console = Console()
 
+
 @app.callback()
 def main_callback() -> None:
     """CLI entrypoint (Typer)."""
+
 
 @app.command("run")
 def run(
