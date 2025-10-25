@@ -4,12 +4,15 @@ from __future__ import annotations
 
 import logging
 from typing import List
+from datetime import date, datetime, timedelta
+from pathlib import Path
 
 from ..domain.models import BackupJob, BackupResult, PlanItem, PlanResult
 from ..domain.exceptions import InvalidPathError
 from ..adapters.filesystem import validate_directory, collect_files, ensure_destination
 from ..utils.timeutils import dated_subfolder
 from ..services.compression import create_archive
+from ..services.retention import purge_old_backups
 
 log = logging.getLogger(__name__)
 
@@ -53,12 +56,26 @@ def execute_backup(job: BackupJob) -> BackupResult:
     if job.compress_format:
         # Timestamp for archive name, e.g., 20251014_120000
         # Reuse mtime of the dated folder or compute from current time
-        from datetime import datetime
-
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         result.compressed_artifact = str(
             create_archive(dst_root, dated, ts, job.compress_format)  # "zip" | "tar"
         )
+
+    # Optional retention (only if not dry-run and no errors)
+    try:
+        if job.retention_days is not None:
+            cutoff = date.today() - timedelta(days=job.retention_days)
+            removed = purge_old_backups(
+                Path(job.destination), cutoff, dry_run=job.dry_run
+            )
+            log.info(
+                "Retention: removed %d dated dirs (cutoff=%s)",
+                len(removed),
+                cutoff.isoformat(),
+            )
+    except Exception as exc:
+        # Best-effort: we don't make the backup fail whether the cleaning failed
+        log.warning("Retention failed (no-fatal): %s", exc)
 
     return result
 

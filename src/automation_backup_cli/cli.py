@@ -7,7 +7,6 @@ from typing import Optional
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-
 from .app import run_backup_job
 from .domain.models import BackupJob
 from .services.backup_service import build_backup_plan
@@ -34,6 +33,11 @@ def run(
         None, "--compress", "-c", help="Compression format: zip or tar"
     ),
     dry_run: bool = typer.Option(False, "--dry-run", help="Simulate actions only"),
+    retention_days: Optional[int] = typer.Option(
+        None,
+        "--retention-days",
+        help="Delete dated folders older than N days (after successful run)",
+    ),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Verbose logs"),
 ) -> None:
     """Run the backup job."""
@@ -45,6 +49,7 @@ def run(
             exclude_patterns=exclude,
             compress_format=compress,
             dry_run=dry_run,
+            retention_days=retention_days,
             verbose=verbose,
         )
 

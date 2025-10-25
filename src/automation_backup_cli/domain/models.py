@@ -18,6 +18,7 @@ class BackupJob:
     exclude_patterns: List[str] = field(default_factory=list)
     compress_format: Optional[CompressionFormat] = None  # "zip" | "tar" | None
     dry_run: bool = False
+    retention_days: Optional[int] = None
 
 
 @dataclass
